@@ -17,6 +17,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.2",
     "axios": "^0.18.0",
     "cross-env": "^5.2.0",
+    "gatsby": "^2.0.67",
     "i": "^0.3.6",
     "npm": "^6.4.1",
     "nuxt": "^2.0.0"
