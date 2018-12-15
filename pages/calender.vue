@@ -35,6 +35,9 @@
             <textarea v-model="text_message"></textarea>
             <!--<button v-on:click="editmessage" class="editbutton">Edit</button>-->
         </div>
+        <div>
+          <p>hoge:{{hoge}}</p>
+        </div>
     </div>
 
   </div>
@@ -70,7 +73,13 @@ export default {
           calData: {year: 0, month: 0},
           items: [],
           text_message: '日にちを押すとここにめっせーじがひょうじされるよ！',
+          hoge:'default'
         }
+    },
+    asyncData(context){
+      return{
+        hoge:context.query['hoge']
+      }
     },
     created: async function (){
         var date = new Date();
