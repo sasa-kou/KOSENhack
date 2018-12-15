@@ -77,7 +77,7 @@ export default {
         this.calData.year = date.getFullYear();
         this.calData.month = date.getMonth() + 1;
 
-        this.items = await axios.get("https://5951ebc4.ngrok.io/getCalendar/minami")
+        this.items = await axios.get("https://ma2018.herokuapp.com/getCalendar/minami")
     },
     methods: {
         click(obj){
