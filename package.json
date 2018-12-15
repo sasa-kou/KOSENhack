@@ -1,0 +1,40 @@
+{
+  "name": "diacs",
+  "version": "1.0.0",
+  "description": "My riveting Nuxt.js project",
+  "author": "diacs",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
+    "@fortawesome/fontawesome-svg-core": "^1.2.8",
+    "@fortawesome/free-solid-svg-icons": "^5.5.0",
+    "@fortawesome/vue-fontawesome": "^0.1.2",
+    "axios": "^0.18.0",
+    "cross-env": "^5.2.0",
+    "i": "^0.3.6",
+    "npm": "^6.4.1",
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "main": "nuxt.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onsd/Diacs_Frontend_OthloHack2018.git"
+  },
+  "keywords": [
+    "diacs"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onsd/Diacs_Frontend_OthloHack2018/issues"
+  },
+  "homepage": "https://github.com/onsd/Diacs_Frontend_OthloHack2018#readme"
+}
