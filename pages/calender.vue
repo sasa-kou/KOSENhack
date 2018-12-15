@@ -31,10 +31,9 @@
 
     <div >
         <div class="message" id="word">
-            <span>Multiline message is:</span>
-            <p>{{message}} </p>
-            <textarea v-model="message" class="text"></textarea>
-            <button v-on:click="editmessage" class="editbutton">Edit</button>
+            <p class="text">{{text_message}} </p>
+            <textarea v-model="text_message"></textarea>
+            <!--<button v-on:click="editmessage" class="editbutton">Edit</button>-->
         </div>
     </div>
 
@@ -70,7 +69,7 @@ export default {
           weeks: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
           calData: {year: 0, month: 0},
           items: [],
-          message: '日にちを押すとここにめっせーじがひょうじされるよ！',
+          text_message: '日にちを押すとここにめっせーじがひょうじされるよ！',
         }
     },
     created: async function (){
@@ -78,14 +77,14 @@ export default {
         this.calData.year = date.getFullYear();
         this.calData.month = date.getMonth() + 1;
 
-        this.items = await axios.get("https://ma2018.herokuapp.com/getCalendar/test")
-        console.log("this.item"+this.items)
+        this.items = await axios.get("https://5951ebc4.ngrok.io/getCalendar/minami")
     },
     methods: {
         click(obj){
             //document.getElementById("word").textContent = obj.article
-            this.message = obj.article
+            this.text_message = obj.article
             console.log(obj)
+            console.log(this.items.data)
             document.querySelector(".message .text").style.borderColor = obj.color
         },
         getMonthName(month){
