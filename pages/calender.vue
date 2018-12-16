@@ -22,10 +22,8 @@
           </tbody>
       </table>
 
-      <div>
-        <i v-on:click="update(day)" class="fas fa-plus">
-        </i>
-      </div>
+      <i v-on:click="update()" class="fas fa-plus">
+      </i>
 
       <div  >
           <img class="colorBar" src="./grad.png">
@@ -33,9 +31,8 @@
 
     <div >
         <div class="message" id="word">
-            <p class="text">{{text_message}} </p>
+            <!--<p class="text">{{text_message}} </p>-->
             <textarea v-model="text_message"></textarea>
-            <!--<button v-on:click="editmessage" class="editbutton">Edit</button>-->
         </div>
         <!--デバック用
         <div>
@@ -94,17 +91,19 @@ export default {
         click(obj){
             //document.getElementById("word").textContent = obj.article
             this.text_message = obj.article
-            console.log(obj)
+            //console.log(obj)
             document.querySelector(".message .text").style.borderColor = obj.color
         },
-        update(obj){
-          console.log("update"+obj.article)
-          /*
+        update(){
+        console.log(this.week)
+        /*
           let params = new URLSearchParams();
-          params.append('postid',);
-          params.append('article',);
+          params.append('postid',this.postId);
+          params.append('article',this.text_message);
 
-          axios.post("URL",params)
+          console.log(params)
+
+          axios.post("https://ma2018.herokuapp.com/updateData",params)
             .then(response => {
               console.log("OK："+response.data.text);
             }).catch(error => {
@@ -140,6 +139,7 @@ export default {
     computed: {
         calendar: function () {
           if (!this.items.data) return;
+            console.log("item"+this.items.data);
             console.log("Day:"+this.items.data[0].Day);
             // 1日の曜日
             var firstDay = new Date(this.calData.year, this.calData.month - 1, 1).getDay();
@@ -174,14 +174,16 @@ export default {
                         for(var i=0;i<this.items.data.length;i++){
                           if(dayIdx == this.items.data[i].Day){
                             week[d].color = "#"+Color[(this.items.data[i].EmotionNum)].toString(16)
-                            week[d].num = this.items.data.length
                             week[d].article = this.items.data[i].Article
+                            week[d].year = this.items.data[i].year
+                            week[d].month = this.items.data[i].month
+                            week[d].day = this.items.data[i].Day
+                            week[d].path= this.items.data[i].path
                           }
                         }
                         dayIdx++;
                     }
                 }
-
                 calendar.push(week);
             }
             return calendar;
@@ -312,7 +314,7 @@ span{
     padding-top: 10px;
 }
 
-.message p {
+.message textarea {
     background-color: #fff;
     width: 90%;
     height: 30vh;
@@ -321,21 +323,4 @@ span{
     border-radius: 1rem;
     border: medium solid #fff;
 }
-
-/*下に表示されるボタン*/
-.editbutton {
-/*
-  position: absolute;
-  padding:10px;
-  top:850px;
-  right: 800px;
-  width: 80px;
-  font-size: 2.0em;*/
-  position: absolute;
-  top: 25px;
-  right: 15px;
-  font-size: 1.5em;
-}
-
-
 </style>
