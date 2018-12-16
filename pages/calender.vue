@@ -22,8 +22,11 @@
           </tbody>
       </table>
 
-      <i v-on:click="update()" class="fas fa-plus">
-      </i>
+      <i v-on:click="update" class="fas fa-plus"></i>
+
+      <div class="fas fa-minus" id="share">
+        <a href=url class="url"></a>
+      </div>
 
       <div  >
           <img class="colorBar" src="./grad.png">
@@ -34,12 +37,7 @@
             <!--<p class="text">{{text_message}} </p>-->
             <textarea v-model="text_message"></textarea>
         </div>
-        <!--デバック用
-        <div>
-          <p>uid:{{uid}}</p>
-        </div>-->
     </div>
-
   </div>
 </template>
 
@@ -63,7 +61,6 @@ export default {
     color: [],
     month:[],
     day:[],
-
   },
   mounted() {
   },
@@ -72,8 +69,8 @@ export default {
           weeks: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
           calData: {year: 0, month: 0},
           items: [],
-          text_message: '日にちを押すとここにめっせーじがひょうじされるよ！',
-          uid:'default'
+          text_message: '日にちを押すとここに日記がひょうじされるよ！',
+          day:'default',
         }
     },
     asyncData(context){
@@ -86,29 +83,33 @@ export default {
         this.calData.year = date.getFullYear();
         this.calData.month = date.getMonth() + 1;
         this.items = await axios.get("https://ma2018.herokuapp.com/getCalendar/"+this.uid)
+
     },
     methods: {
         click(obj){
             //document.getElementById("word").textContent = obj.article
             this.text_message = obj.article
-            //console.log(obj)
+            this.day = obj.day
             document.querySelector(".message .text").style.borderColor = obj.color
         },
         update(){
-        console.log(this.week)
-        /*
           let params = new URLSearchParams();
-          params.append('postid',this.postId);
+          params.append('userid',this.items.data[this.day].UserID);
+          params.append('path',this.items.data[this.day].Path);
+          params.append('year',this.items.data[this.day].Year);
+          params.append('month',this.items.data[this.day].Month);
+          params.append('day',this.day);
           params.append('article',this.text_message);
 
-          console.log(params)
-
-          axios.post("https://ma2018.herokuapp.com/updateData",params)
+          axios.post("https://ma2018.herokuapp.com/getSentiment",params)
             .then(response => {
-              console.log("OK："+response.data.text);
+              console.log(response.data);
             }).catch(error => {
               console.log(error);
-            });*/
+            });
+        },
+        share(){
+
         },
         getMonthName(month){
             var monthName = ['1','2','3','4','5','6','7','8','9','10','11','12'];
@@ -131,16 +132,11 @@ export default {
             else {
                 this.calData.month++;
             }
-        },
-        editmessage() {
-          console.log(this.message);
         }
     },
     computed: {
         calendar: function () {
           if (!this.items.data) return;
-            console.log("item"+this.items.data);
-            console.log("Day:"+this.items.data[0].Day);
             // 1日の曜日
             var firstDay = new Date(this.calData.year, this.calData.month - 1, 1).getDay();
             // 晦日の日にち
@@ -175,10 +171,6 @@ export default {
                           if(dayIdx == this.items.data[i].Day){
                             week[d].color = "#"+Color[(this.items.data[i].EmotionNum)].toString(16)
                             week[d].article = this.items.data[i].Article
-                            week[d].year = this.items.data[i].year
-                            week[d].month = this.items.data[i].month
-                            week[d].day = this.items.data[i].Day
-                            week[d].path= this.items.data[i].path
                           }
                         }
                         dayIdx++;
@@ -298,6 +290,13 @@ span{
   position: absolute;
   top: 25px;
   right: 15px;
+  font-size: 1.5em;
+  color: #919191;
+}
+.fa-minus{
+  position: absolute;
+  top: 25px;
+  left: 15px;
   font-size: 1.5em;
   color: #919191;
 }
