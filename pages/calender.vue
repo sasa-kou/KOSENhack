@@ -24,8 +24,8 @@
 
       <i v-on:click="update" class="fas fa-plus"></i>
 
-      <div class="fas fa-minus" id="share">
-        <a href=url class="url"></a>
+      <div>
+        <a href= "https://social-plugins.line.me/lineit/share?url=https://81b4e0f3.ngrok.io/calender?uid=minami" class="fas fa-minus"></a>
       </div>
 
       <div  >
@@ -61,6 +61,7 @@ export default {
     color: [],
     month:[],
     day:[],
+    url:"https://social-plugins.line.me/lineit/share?url=https://www.suzuka-ct.ac.jp",
   },
   mounted() {
   },
