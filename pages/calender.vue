@@ -36,7 +36,7 @@
             <!--<button v-on:click="editmessage" class="editbutton">Edit</button>-->
         </div>
         <div>
-          <p>hoge:{{hoge}}</p>
+          <p>uid:{{uid}}</p>
         </div>
     </div>
 
@@ -73,27 +73,25 @@ export default {
           calData: {year: 0, month: 0},
           items: [],
           text_message: '日にちを押すとここにめっせーじがひょうじされるよ！',
-          hoge:'default'
+          uid:'default'
         }
     },
     asyncData(context){
       return{
-        hoge:context.query['hoge']
+        uid:context.query['uid']
       }
     },
     created: async function (){
         var date = new Date();
         this.calData.year = date.getFullYear();
         this.calData.month = date.getMonth() + 1;
-
-        this.items = await axios.get("https://ma2018.herokuapp.com/getCalendar/minami")
+        this.items = await axios.get("https://ma2018.herokuapp.com/getCalendar/"+this.uid)
     },
     methods: {
         click(obj){
             //document.getElementById("word").textContent = obj.article
             this.text_message = obj.article
             console.log(obj)
-            console.log(this.items.data)
             document.querySelector(".message .text").style.borderColor = obj.color
         },
         getMonthName(month){
