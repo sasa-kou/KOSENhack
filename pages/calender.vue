@@ -22,9 +22,11 @@
           </tbody>
       </table>
 
-      <a href="/post">
-        <i class="fas fa-plus"></i>
-      </a>
+      <div>
+        <i v-on:click="update(day)" class="fas fa-plus">
+        </i>
+      </div>
+
       <div  >
           <img class="colorBar" src="./grad.png">
         </div>
@@ -35,9 +37,10 @@
             <textarea v-model="text_message"></textarea>
             <!--<button v-on:click="editmessage" class="editbutton">Edit</button>-->
         </div>
+        <!--デバック用
         <div>
           <p>uid:{{uid}}</p>
-        </div>
+        </div>-->
     </div>
 
   </div>
@@ -93,6 +96,20 @@ export default {
             this.text_message = obj.article
             console.log(obj)
             document.querySelector(".message .text").style.borderColor = obj.color
+        },
+        update(obj){
+          console.log("update"+obj.article)
+          /*
+          let params = new URLSearchParams();
+          params.append('postid',);
+          params.append('article',);
+
+          axios.post("URL",params)
+            .then(response => {
+              console.log("OK："+response.data.text);
+            }).catch(error => {
+              console.log(error);
+            });*/
         },
         getMonthName(month){
             var monthName = ['1','2','3','4','5','6','7','8','9','10','11','12'];
